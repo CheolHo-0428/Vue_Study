@@ -33,6 +33,12 @@
         <button v-on:click="toggleElement">Toggle</button>
         <input type="text" v-model="message">
     </div>
+
+    <div id="app5">
+        <ul>
+            <my-todo-item v-for="todo in todos" v-bind:todo="todo" v-bind:key="todo.item"> </my-todo-item>
+        </ul>
+    </div>
     
 </body>
 </html>

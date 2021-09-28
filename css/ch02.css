@@ -23,3 +23,7 @@
     width: 400px;
     background: salmon;
 }
+
+li span.done{
+    text-decoration: line-through;
+}
