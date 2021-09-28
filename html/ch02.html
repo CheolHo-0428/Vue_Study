@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script defer src="../js/ch02.js"></script>
+    <link rel="stylesheet" href="../css/ch02.css">
+</head>
+<body>
+    <div id="app">
+        <div class="text" v-bind:class="{active : actor}">
+            {{message}}
+        </div>
+    </div>
+
+    <div id="app3">
+        <div v-if="message">{{message}} ~~</div>
+        <ul>
+            <li v-for="item in items" v-bind:key="item.id">
+                {{item.message}}
+            </li>
+        </ul>
+    </div>
+
+    <div id="app4">
+        <div class="box" v-bind:class="{action : toggle}" v-on:click="toggleElement">
+            {{message}}
+        </div>
+        <button v-on:click="toggleElement">Toggle</button>
+        <input type="text" v-model="message">
+    </div>
+    
+</body>
+</html>

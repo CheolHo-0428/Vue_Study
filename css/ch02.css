@@ -1,0 +1,25 @@
+#app .text{
+    font-size: 70px;
+}
+
+.active {
+    color: blue;
+}
+
+#app4 .box{
+    width: 150px;
+    height: 150px;
+    background: royalblue;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app4 .box.action{
+    width: 400px;
+    background: salmon;
+}
