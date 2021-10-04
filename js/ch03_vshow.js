@@ -5,7 +5,7 @@ const vm = new Vue({
     },
     methods: {
         toggle (){
-            this.show = !this.show
+            this.show = !this.show;
         }
     }
 })
