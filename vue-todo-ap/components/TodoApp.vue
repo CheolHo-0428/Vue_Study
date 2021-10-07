@@ -39,7 +39,7 @@ export default {
             //localDB 초기화
             this.db.defaults({
               todos: []
-            }).write
+            }).write()
         },
 
         createTodo (title) {
