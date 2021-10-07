@@ -1,4 +1,7 @@
 <template>
-    <h1>Todo Creator</h1>    
+    <div>
+        <button>추가</button>
+        <input type="text" />
+    </div>    
 </template>
 

@@ -8,6 +8,8 @@
 <script>
 import lowdb from 'lowdb'
 import LocalStorage from 'lowdb/adapters/LocalStorage'
+import crytoRandomString from 'crypto-random-string'
+
 import TodoCreator from './TodoCreator'
 import TodoItem from './TodoItem'
 
@@ -22,7 +24,7 @@ export default {
             db: null
         }
     },
-    
+
     created () { //TodoApp이 생성된 직후에 initDB 작동
       this.initDB()
     },
@@ -31,12 +33,28 @@ export default {
         initDB () {
             const adapter = new LocalStorage('todo-app') //DB 이름 todo-app
             this.db = lowdb(adapter)
+            
             console.log(this.db)
 
             //localDB 초기화
             this.db.defaults({
               todos: []
             }).write
+        },
+
+        createTodo (title) {
+          const newTodo = {
+            id: crytoRandomString({ length: 10}),
+            title,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            done: false
+          }
+
+          this.db
+            .get('todos') // lodash
+            .push(newTodo)  // lodash
+            .write() // lowdb
         }
     }
 }
