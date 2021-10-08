@@ -1,6 +1,13 @@
 <template>
     <div>
-        <todo-item />
+        <todo-item 
+          v-for="todo in todos" 
+          :key="todo.id"
+          :todo="todo"
+          @update-todo="updateTodo"
+          @delete-todo="deleteTodo"
+        />
+        <hr>
         <todo-creator @create-todo="createTodo"/>
     </div>    
 </template>
@@ -9,7 +16,10 @@
 import lowdb from 'lowdb'
 import LocalStorage from 'lowdb/adapters/LocalStorage'
 import cryptoRandomString from 'crypto-random-string'
-
+import _cloneDeep from 'lodash/cloneDeep'
+import _find from 'lodash/find'
+import _assign from 'lodash/assign'
+import _findIndex from 'lodash/findIndex'
 import TodoCreator from './TodoCreator'
 import TodoItem from './TodoItem'
 
@@ -21,7 +31,8 @@ export default {
 
     data () {
         return {
-            db: null
+            db: null,
+            todos: []
         }
     },
 
@@ -36,11 +47,17 @@ export default {
             
             console.log(this.db)
 
-            //localDB 초기화
-            this.db.defaults({
-              todos: []
-            }).write()
-        },
+            const hasTodos = this.db.has('todos').value()
+
+            if(hasTodos){
+              this.todos = _cloneDeep(this.db.getState().todos)
+             } else {
+                //localDB 초기화
+                this.db.defaults({
+                  todos: []
+                }).write()
+                } 
+             },
 
         createTodo (title) {
           const newTodo = {
@@ -51,10 +68,34 @@ export default {
             done: false
           }
 
+          // Create DB
           this.db
             .get('todos') // lodash
             .push(newTodo)  // lodash
             .write() // lowdb
+          
+          // Create Client
+          this.todos.push(newTodo)
+        },
+
+        updateTodo (todo, value) {
+          this.db.get('todos')
+            .find({id: todo.id})
+            .assign(value)
+            .write()
+
+         const foundTodo = _find(this.todos, {id: todo.id})
+         _assign(foundTodo, value)
+        },
+
+        deleteTodo (todo) {
+          this.db
+            .get('todos')
+            .remove({ id: todo.id })
+            .write()
+          
+          const foundIndex = _findIndex(this.todos, {id: todo.id})
+          this.$delete(this.todos, foundIndex)
         }
     }
 }
