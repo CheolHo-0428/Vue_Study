@@ -1,6 +1,8 @@
 <template>
     <div>
-        <button @click="createTodo">추가</button>
+        <button @click="createTodo">
+          <i class="material-icons">add</i>
+        </button>
         <input  
           :value="title" 
           :placeholder="placeholder"
@@ -31,6 +33,11 @@ export default {
         //생성
         this.$emit('create-todo', this.title)
         this.title = ''
+
+        this.$nextTick(() => {
+          // 추가된 항목 포커스(스크롤이 자동으로 내려감)
+          window.scrollTo(0, document.body.scrollHeight) 
+        })
       }
     }
 }
