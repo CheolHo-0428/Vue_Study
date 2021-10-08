@@ -12,7 +12,11 @@ module.exports = (env, opts) => {
 
     // .vue, .js 확장자 생략 옵션
     resolve: {
-      extensions: ['.vue', '.js']
+      extensions: ['.vue', '.js'],
+      alias: {
+        '~': path.join(__dirname),
+        'scss': path.join(__dirname, './scss')
+      }
     },
 
     // 진입점
