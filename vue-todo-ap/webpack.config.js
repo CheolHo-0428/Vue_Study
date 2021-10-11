@@ -73,10 +73,10 @@ module.exports = (env, opts) => {
       //   ]
       // })
       new CopyPlugin([
-          {
-              from: 'assets/',
-              to: ''
-          }
+        {
+          from: 'assets/',
+          to: ''
+        }
       ])
     ]
   }

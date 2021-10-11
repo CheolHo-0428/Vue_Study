@@ -11,13 +11,11 @@
 <script>
 export default {
   created () {
-    console.log("Router:", this.$router)
-    console.log("Route:", this.$route)
+    console.log('Router:', this.$router)
+    console.log('Route:', this.$route)
   }
 }
 </script>
-
-
 
 <style lang="scss">
   .to-home.router-link-exact-active {
